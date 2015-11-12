@@ -56,11 +56,12 @@ var Magnifier = React.createClass({
     render: function render() {
         var _this = this;
         var props = this.props;
-        var halfSize = props.size / 2;
+        var halfSizeY = props.size / 2;
+        var halfSizeX = (props.size + (props.size * .4)) / 2;
         var magX = props.zoomImage.width / props.smallImage.width;
         var magY = props.zoomImage.height / props.smallImage.height;
-        var bgX = -(props.offsetX * magX - halfSize);
-        var bgY = -(props.offsetY * magY - halfSize);
+        var bgX = -(props.offsetX * magX - halfSizeX);
+        var bgY = -(props.offsetY * magY - halfSizeY);
         var isVisible = props.offsetY < props.smallImage.height && props.offsetX < props.smallImage.width && props.offsetY > 0 && props.offsetX > 0;
         return React.createElement(
             'div',
@@ -69,22 +70,22 @@ var Magnifier = React.createClass({
                     display: isVisible ? 'block' : 'none',
                     top: props.y,
                     left: props.x,
-                    width: props.size,
+                    width: props.size + (props.size * .4),
                     height: props.size,
-                    marginLeft: -halfSize + props.cursorOffset.x,
-                    marginTop: -halfSize + props.cursorOffset.y,
+                    marginLeft: -halfSizeX + props.cursorOffset.x,
+                    marginTop: -halfSizeY + props.cursorOffset.y,
                     backgroundColor: 'white',
-                    borderRadius: props.size,
-                    boxShadow: '1px 1px 6px rgba(0,0,0,0.3)'
+                    boxShadow: '1px 1px 6px rgba(0,0,0,0.3)',
                 } },
             React.createElement('div', {
                 style: {
-                    width: props.size,
+                    width: props.size + (props.size * .4),
                     height: props.size,
                     backgroundImage: 'url(' + props.zoomImage.src + ')',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: bgX + 'px ' + bgY + 'px',
-                    borderRadius: props.size
+                    border: '4px solid #77c2e6'
+
                 },
                 onClick: _this.handleClick
             })
