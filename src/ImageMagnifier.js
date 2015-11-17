@@ -171,11 +171,11 @@ var ImageMagnifier = React.createClass({
     onMouseMove: function onMouseMove(e) {
         var offset = getOffset(this.getDOMNode());
 
-        this.setState({
-            x: e.x + window.scrollX,
-            y: e.y + window.scrollY,
-            offsetX: e.x - offset.x,
-            offsetY: e.y - offset.y
+				this.setState({
+            x       : e.clientX + window.scrollX,
+            y       : e.clientY + window.scrollY,
+            offsetX : e.clientX - offset.x,
+            offsetY : e.clientY - offset.y
         });
     },
 
