@@ -96,11 +96,14 @@ var Magnifier = React.createClass({
 function getOffset(el) {
     var x = 0;
     var y = 0;
+
     while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-        x += el.offsetLeft - el.scrollLeft;
-        y += el.offsetTop - el.scrollTop;
+        // FF & IE don't support body's scrollTop - use window instead
+        x += el.offsetLeft - (el.tagName === 'BODY' ? window.pageXOffset : el.scrollLeft);
+        y += el.offsetTop - (el.tagName === 'BODY' ? window.pageYOffset : el.scrollTop);
         el = el.offsetParent;
     }
+
     return { x: x, y: y };
 }
 
@@ -171,9 +174,12 @@ var ImageMagnifier = React.createClass({
     onMouseMove: function onMouseMove(e) {
         var offset = getOffset(this.getDOMNode());
 
-				this.setState({
-            x       : e.clientX + (window.scrollX || window.pageXOffset),
-            y       : e.clientY + (window.scrollY || window.pageYOffset),
+        var scrollX = (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
+        var scrollY = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+
+        this.setState({
+            x       : e.clientX + scrollX, //(window.scrollX || window.pageXOffset),
+            y       : e.clientY + scrollY, //(window.scrollY || window.pageYOffset),
             offsetX : e.clientX - offset.x,
             offsetY : e.clientY - offset.y
         });
