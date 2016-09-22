@@ -3,6 +3,7 @@
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 
 var Magnifier = React.createClass({
     displayName: 'Magnifier',
@@ -172,7 +173,7 @@ var ImageMagnifier = React.createClass({
     },
 
     onMouseMove: function onMouseMove(e) {
-        var offset = getOffset(this.getDOMNode());
+        var offset = getOffset(ReactDOM.findDOMNode(this));
 
         var scrollX = (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
         var scrollY = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
@@ -192,7 +193,7 @@ var ImageMagnifier = React.createClass({
     },
 
     componentDidUpdate: function componentDidUpdate() {
-        React.render(React.createElement(Magnifier, _extends({
+        ReactDOM.render(React.createElement(Magnifier, _extends({
             size: this.props.size,
             smallImage: this.props.image,
             zoomImage: this.props.zoomImage,
@@ -202,8 +203,7 @@ var ImageMagnifier = React.createClass({
     },
 
     render: function render() {
-        var _this = this;
-        return React.createElement('img', _extends({}, this.props, { src: this.props.image.src }));
+      return <img src={this.props.image.src} />;
     }
 });
 

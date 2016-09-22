@@ -3,6 +3,7 @@ require('es5-shim');
 require('es5-shim/es5-sham');
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var ImageMagnifier = require('./ImageMagnifier');
 
 var App = React.createClass({
@@ -52,4 +53,4 @@ var App = React.createClass({
     }
 });
 
-React.render(<App />, document.getElementById("mount"));
+ReactDOM.render(<App />, document.getElementById("mount"));
