@@ -203,7 +203,7 @@ var ImageMagnifier = React.createClass({
     },
 
     render: function render() {
-      return <img src={this.props.image.src} />;
+      return React.createElement('img', {src: this.props.image.src});
     }
 });
 
